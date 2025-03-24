@@ -879,6 +879,8 @@ QCloudThreadSafeMutableDictionary *QCloudCOSTaskCache() {
                 [put.customHeaders setObject:base64String forKey:@"x-cos-callback"];
             }
         }
+        [put.customHeaders setObject:@"image/png" forKey:@"content-type"];
+        [put.customHeaders setObject:@"true" forKey:@"x-cos-forbid-overwrite"];
         // 需要上传的对象内容。可以传入NSData*或者NSURL*类型的变量
         if(filePath){
             put.body = [NSURL fileURLWithPath:filePath];

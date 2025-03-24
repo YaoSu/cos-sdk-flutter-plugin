@@ -976,6 +976,14 @@ public class CosPlugin implements FlutterPlugin, Pigeon.CosApi, Pigeon.CosServic
                 request.setRequestHeaders("x-cos-callback", callbackBase64, false);
             } catch (Exception ignored){}
         }
+
+        try {
+//            request.setRequestHeaders("content-type", "image/png", false);
+            request.setRequestHeaders("x-cos-forbid-overwrite", "true", false);
+        } catch (CosXmlClientException e) {
+            e.printStackTrace();
+        }
+
         COSXMLUploadTask task = transferManager.upload(request, uploadId);
         setTaskListener(task, transferKey, resultCallbackKey, stateCallbackKey, progressCallbackKey, InitMultipleUploadCallbackKey);
         String taskKey = String.valueOf(task.hashCode());
